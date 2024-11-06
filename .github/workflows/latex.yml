@@ -1,0 +1,28 @@
+name: Build LaTeX document
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up LaTeX environment
+        uses: dante-ev/latex-action@v2
+        with:
+          root_file: readme.tex # Đổi "your_file.tex" thành tên file LaTeX của bạn
+          latexmk_shell_escape: true
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: PDF
+          path: readme.pdf # Đổi "your_file.pdf" thành tên file PDF bạn muốn tạo
