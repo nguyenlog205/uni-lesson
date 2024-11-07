@@ -1,0 +1,68 @@
+REFINING SELECTTION | STRONG WEAPON IN THE ARSENAL
+
+KEYWORD: DISTINCT, ORDER BY, LIMIT, LIKE
+
+===================================================================================
+1. We can write code to add new books as follows:
+INSERT INTO books
+    (title, author_fname, author_lname, released_year, stock_quantity, pages)
+    VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
+           ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
+           ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
+
+===================================================================================
+2. In case of selecting different values, we can write code as follow:
+SELECT DISTINCT <feature_name> ....
+The DISTINCT keyword select the entire different combination of columns in the SELECT clause, not just to a single column or feature.
+For example:
+    SELECT DISTINCT author_lname FROM books;
+    SELECT DISTINCT CONCAT(author_fname,' ', author_lname) FROM books;
+    SELECT DISTINCT author_fname, author_lname FROM books;
+
+    
+===================================================================================
+3. For softing values (accourdnig to a specific feature), use "ORDER BY" syntax:
+For example: 
+    SELECT <feature_name> FROM <relation_name>
+    ORDER BY <softed-feature> <DESC/ASC>;
+with DESC for decrease value, ASC for increasing value;
+
+If user lists a sequence of feature names, its ordered-number can be used for specifying the softed feature.
+For example:
+    SELECT book_id, author_fname, author_lname, pages
+    FROM books
+    ORDER BY 2 DESC;
+
+Example:
+    SELECT book_id, author_fname, author_lname, pages
+    FROM books 
+    ORDER BY author_lname, author_fname;
+This query retrieves the specified columns from the books table and sorts the results alphabetically by author_lname.
+Within each author_lname, if multiple authors share the same last name, it will then sort by author_fname.
+
+
+===================================================================================
+4. When you just want to retrieve first n queries, use "LIMIT n".
+For example: 
+    SELECT * FROM books LIMIT 1;
+===================================================================================
+5. In case of forgeting a/some character(s), use LIKE, mix and match with \% and _
+%: Zero, one, or many characters
+_: a character only.
+For example:
+    SELECT * FROM books
+    WHERE author_fname LIKE '____';
+Example 02:
+    SELECT title, author_fname, author_lname, pages 
+    FROM books
+    WHERE author_fname LIKE '%da%';
+
+-- To select books with '%' in their title:
+    SELECT * FROM books
+    WHERE title LIKE '%\%%';
+ 
+-- To select books with an underscore '_' in title:
+    SELECT * FROM books
+    WHERE title LIKE '%\_%';
+
+====================================================================================
